@@ -1,0 +1,496 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Is Your Loyalty Program Actually Driving Loyalty? | Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'buzz-red': '#FF4757',
+                        'buzz-purple': '#5352ED',
+                        'buzz-yellow': '#FFC107',
+                        'buzz-green': '#2ED573',
+                        'buzz-dark': '#2F3542',
+                        'buzz-light': '#F1F2F6'
+                    },
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif']
+                    },
+                    animation: {
+                        'bounce-in': 'bounceIn 0.6s ease-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'confetti': 'confetti 3s ease-out infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite'
+                    },
+                    keyframes: {
+                        bounceIn: {
+                            '0%': { transform: 'scale(0.3)', opacity: '0' },
+                            '50%': { transform: 'scale(1.05)', opacity: '0.8' },
+                            '100%': { transform: 'scale(1)', opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        confetti: {
+                            '0%': { transform: 'translateY(-100vh) rotate(0deg)', opacity: '1' },
+                            '100%': { transform: 'translateY(100vh) rotate(360deg)', opacity: '0' }
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 5px rgba(255, 71, 87, 0.5)' },
+                            '50%': { boxShadow: '0 0 20px rgba(255, 71, 87, 0.8), 0 0 30px rgba(255, 71, 87, 0.4)' }
+                        }
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        .confetti-piece {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: linear-gradient(45deg, #FF4757, #5352ED, #FFC107, #2ED573);
+            pointer-events: none;
+            z-index: 1000;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .choice-card:hover {
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+        .result-gradient {
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcf7f, #4d96ff);
+            background-size: 400% 400%;
+            animation: gradient 3s ease infinite;
+        }
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="font-inter bg-gray-50">
+    
+    <!-- Quiz Container -->
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="gradient-bg text-white py-6 px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="flex items-center justify-center mb-4">
+                    <i class="fas fa-heart text-3xl mr-3 text-buzz-yellow"></i>
+                    <h1 class="text-2xl md:text-3xl font-bold">BuzzQuiz</h1>
+                </div>
+                <div class="w-16 h-1 bg-buzz-yellow rounded-full mx-auto"></div>
+            </div>
+        </header>
+
+        <!-- Main Quiz Container -->
+        <div class="max-w-4xl mx-auto px-4 py-8">
+            
+            <!-- Quiz Start Screen -->
+            <div id="quiz-start" class="animate-slide-up">
+                <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 text-center border-t-8 border-buzz-red">
+                    <!-- Quiz Icon -->
+                    <div class="w-24 h-24 bg-gradient-to-br from-buzz-red to-buzz-purple rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-poll text-white text-3xl"></i>
+                    </div>
+                    
+                    <h1 class="text-3xl md:text-4xl font-bold text-buzz-dark mb-4 leading-tight">
+                        Is Your Loyalty Program Actually Driving Loyalty?
+                    </h1>
+                    
+                    <p class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                        A 10-question check-up to see if your rewards system works for real customers—not just your back office.
+                    </p>
+                    
+                    <div class="bg-buzz-light rounded-2xl p-6 mb-8 inline-block">
+                        <div class="flex items-center justify-center text-buzz-dark">
+                            <i class="fas fa-clock mr-3 text-buzz-purple"></i>
+                            <span class="font-semibold">Takes less than 5 minutes</span>
+                        </div>
+                    </div>
+                    
+                    <button onclick="startQuiz()" class="bg-gradient-to-r from-buzz-red to-buzz-purple text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 animate-pulse-glow">
+                        Start Quiz <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Quiz Progress & Questions -->
+            <div id="quiz-questions" class="hidden">
+                <!-- Progress Bar -->
+                <div class="bg-white rounded-2xl shadow-lg p-4 mb-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-sm font-semibold text-buzz-dark">Progress</span>
+                        <span id="progress-text" class="text-sm font-semibold text-buzz-purple">1 of 10</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div id="progress-bar" class="bg-gradient-to-r from-buzz-red to-buzz-purple h-3 rounded-full transition-all duration-500 ease-out" style="width: 10%"></div>
+                    </div>
+                </div>
+
+                <!-- Question Card -->
+                <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-10">
+                    <div class="text-center mb-8">
+                        <div class="w-16 h-16 bg-gradient-to-br from-buzz-yellow to-buzz-red rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span id="question-number" class="text-white font-bold text-xl">1</span>
+                        </div>
+                        <h2 id="question-text" class="text-2xl md:text-3xl font-bold text-buzz-dark leading-tight">
+                            Are your rewards based on what your best customers actually want?
+                        </h2>
+                    </div>
+
+                    <!-- Answer Choices -->
+                    <div id="answer-choices" class="space-y-4">
+                        <!-- Choices will be populated by JavaScript -->
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="flex justify-between items-center mt-8 pt-6 border-t border-gray-100">
+                        <button id="prev-btn" onclick="previousQuestion()" class="bg-gray-100 text-buzz-dark font-semibold py-3 px-6 rounded-full hover:bg-gray-200 transition-colors duration-300 disabled:opacity-50" disabled>
+                            <i class="fas fa-arrow-left mr-2"></i> Previous
+                        </button>
+                        <button id="next-btn" onclick="nextQuestion()" class="bg-gradient-to-r from-buzz-purple to-buzz-red text-white font-semibold py-3 px-6 rounded-full hover:shadow-lg transform hover:scale-105 transition-all duration-300 opacity-50 cursor-not-allowed" disabled>
+                            Next <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Screen -->
+            <div id="quiz-results" class="hidden animate-bounce-in">
+                <div class="bg-white rounded-3xl shadow-2xl p-8 md:p-12 text-center border-t-8 border-buzz-green">
+                    <!-- Confetti Animation -->
+                    <div id="confetti-container"></div>
+                    
+                    <!-- Result Badge -->
+                    <div class="w-32 h-32 result-gradient rounded-full flex items-center justify-center mx-auto mb-6 text-white">
+                        <div class="text-center">
+                            <div id="score-display" class="text-3xl font-black">18</div>
+                            <div class="text-sm font-semibold">out of 20</div>
+                        </div>
+                    </div>
+                    
+                    <h2 id="result-title" class="text-3xl md:text-4xl font-bold text-buzz-dark mb-4">
+                        Loyalty Engine
+                    </h2>
+                    
+                    <p id="result-description" class="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+                        Your program is targeted, easy to use, and clearly valued by customers. Keep refining.
+                    </p>
+                    
+                    <!-- Social Sharing -->
+                    <div class="bg-buzz-light rounded-2xl p-6 mb-8">
+                        <h3 class="font-bold text-buzz-dark mb-4">Share Your Results!</h3>
+                        <div class="flex justify-center space-x-4">
+                            <button onclick="shareOnTwitter()" class="bg-blue-400 text-white p-3 rounded-full hover:bg-blue-500 transition-colors">
+                                <i class="fab fa-twitter"></i>
+                            </button>
+                            <button onclick="shareOnFacebook()" class="bg-blue-600 text-white p-3 rounded-full hover:bg-blue-700 transition-colors">
+                                <i class="fab fa-facebook-f"></i>
+                            </button>
+                            <button onclick="shareOnLinkedIn()" class="bg-blue-700 text-white p-3 rounded-full hover:bg-blue-800 transition-colors">
+                                <i class="fab fa-linkedin-in"></i>
+                            </button>
+                            <button onclick="copyResults()" class="bg-gray-600 text-white p-3 rounded-full hover:bg-gray-700 transition-colors">
+                                <i class="fas fa-link"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <button onclick="restartQuiz()" class="bg-gradient-to-r from-buzz-purple to-buzz-red text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                        Take Quiz Again <i class="fas fa-redo ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            // Quiz data
+            const quizData = [
+                {
+                    question: "Are your rewards based on what your best customers actually want?",
+                    answers: [
+                        { text: "Yes, we use real data or direct feedback", points: 2 },
+                        { text: "Sort of, we make educated guesses", points: 1 },
+                        { text: "No, rewards are generic or based on leftover stock", points: 0 }
+                    ]
+                },
+                {
+                    question: "Do you offer different benefits or recognition for high-value customers?",
+                    answers: [
+                        { text: "Yes, through tiers, early access, or exclusives", points: 2 },
+                        { text: "Somewhat, but it's inconsistent", points: 1 },
+                        { text: "No, everyone gets the same rewards", points: 0 }
+                    ]
+                },
+                {
+                    question: "Can customers easily see their points or rewards balance?",
+                    answers: [
+                        { text: "Yes, it's visible at checkout or in their account", points: 2 },
+                        { text: "It's available but not obvious", points: 1 },
+                        { text: "No, they have to ask or don't know at all", points: 0 }
+                    ]
+                },
+                {
+                    question: "Is signing up for your loyalty program quick and simple?",
+                    answers: [
+                        { text: "Yes, less than 30 seconds at checkout", points: 2 },
+                        { text: "It requires a few extra steps", points: 1 },
+                        { text: "It's complicated or not promoted", points: 0 }
+                    ]
+                },
+                {
+                    question: "Are customers rewarded for non-purchase actions like reviews or referrals?",
+                    answers: [
+                        { text: "Yes, we offer clear incentives for these", points: 2 },
+                        { text: "Only for one or two actions", points: 1 },
+                        { text: "No, only purchases earn points", points: 0 }
+                    ]
+                },
+                {
+                    question: "Are there multiple ways to redeem rewards?",
+                    answers: [
+                        { text: "Yes, including discounts, products, or special access", points: 2 },
+                        { text: "Mostly just discounts", points: 1 },
+                        { text: "One rigid option only", points: 0 }
+                    ]
+                },
+                {
+                    question: "Do you communicate loyalty benefits through SMS, email, or social?",
+                    answers: [
+                        { text: "Yes, through automated and regular messaging", points: 2 },
+                        { text: "Occasionally or only in-store", points: 1 },
+                        { text: "Rarely or never", points: 0 }
+                    ]
+                },
+                {
+                    question: "Is there a welcome flow that explains the program and next steps?",
+                    answers: [
+                        { text: "Yes, customers get guided onboarding", points: 2 },
+                        { text: "Kind of, but it's limited or manual", points: 1 },
+                        { text: "No, they're enrolled silently with no follow-up", points: 0 }
+                    ]
+                },
+                {
+                    question: "Are loyalty offers or messages personalized based on shopping behavior?",
+                    answers: [
+                        { text: "Yes, we target based on past purchases or habits", points: 2 },
+                        { text: "Occasionally, in a broad sense", points: 1 },
+                        { text: "No, all messages are the same", points: 0 }
+                    ]
+                },
+                {
+                    question: "Do your team members talk about the program during checkout?",
+                    answers: [
+                        { text: "Yes, it's part of the script or habit", points: 2 },
+                        { text: "Sometimes, but not consistently", points: 1 },
+                        { text: "No, it's rarely mentioned", points: 0 }
+                    ]
+                }
+            ];
+
+            const resultTiers = {
+                'Loyalty Engine': { min: 18, max: 20, description: "Your program is targeted, easy to use, and clearly valued by customers. Keep refining." },
+                'Solid Core, Needs Fine-Tuning': { min: 13, max: 17, description: "You're on the right track, but usability, variety, or visibility might be holding back performance." },
+                'Passive Program': { min: 7, max: 12, description: "It exists, but most customers likely don't engage with it. Focus on clarity, communication, and reward relevance." },
+                'Needs a Rebuild': { min: 0, max: 6, description: "The program isn't driving loyalty. Prioritize a cleaner user experience and more meaningful value." }
+            };
+
+            let currentQuestion = 0;
+            let answers = [];
+            let totalScore = 0;
+
+            // Quiz functionality
+            window.startQuiz = function() {
+                document.getElementById('quiz-start').classList.add('hidden');
+                document.getElementById('quiz-questions').classList.remove('hidden');
+                currentQuestion = 0;
+                answers = [];
+                totalScore = 0;
+                showQuestion();
+            };
+
+            window.selectAnswer = function(answerIndex, points) {
+                answers[currentQuestion] = { index: answerIndex, points: points };
+                
+                // Remove previous selections
+                document.querySelectorAll('.choice-card').forEach(card => {
+                    card.classList.remove('ring-4', 'ring-buzz-red', 'bg-buzz-red', 'text-white');
+                    card.classList.add('bg-white', 'text-buzz-dark');
+                });
+                
+                // Highlight selected answer
+                const selectedCard = document.querySelector(`[data-answer="${answerIndex}"]`);
+                selectedCard.classList.remove('bg-white', 'text-buzz-dark');
+                selectedCard.classList.add('ring-4', 'ring-buzz-red', 'bg-buzz-red', 'text-white');
+                
+                // Enable next button
+                const nextBtn = document.getElementById('next-btn');
+                nextBtn.disabled = false;
+                nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                nextBtn.classList.add('hover:shadow-lg', 'transform', 'hover:scale-105');
+            };
+
+            window.nextQuestion = function() {
+                if (currentQuestion < quizData.length - 1) {
+                    currentQuestion++;
+                    showQuestion();
+                } else {
+                    showResults();
+                }
+            };
+
+            window.previousQuestion = function() {
+                if (currentQuestion > 0) {
+                    currentQuestion--;
+                    showQuestion();
+                }
+            };
+
+            function showQuestion() {
+                const question = quizData[currentQuestion];
+                
+                // Update progress
+                const progress = ((currentQuestion + 1) / quizData.length) * 100;
+                document.getElementById('progress-bar').style.width = progress + '%';
+                document.getElementById('progress-text').textContent = `${currentQuestion + 1} of ${quizData.length}`;
+                document.getElementById('question-number').textContent = currentQuestion + 1;
+                document.getElementById('question-text').textContent = question.question;
+                
+                // Update navigation buttons
+                document.getElementById('prev-btn').disabled = currentQuestion === 0;
+                const nextBtn = document.getElementById('next-btn');
+                nextBtn.disabled = !answers[currentQuestion];
+                nextBtn.textContent = currentQuestion === quizData.length - 1 ? 'Get Results!' : 'Next';
+                
+                if (!answers[currentQuestion]) {
+                    nextBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    nextBtn.classList.remove('hover:shadow-lg', 'transform', 'hover:scale-105');
+                }
+                
+                // Create answer choices
+                const choicesContainer = document.getElementById('answer-choices');
+                choicesContainer.innerHTML = '';
+                
+                question.answers.forEach((answer, index) => {
+                    const choiceDiv = document.createElement('div');
+                    const isSelected = answers[currentQuestion] && answers[currentQuestion].index === index;
+                    
+                    choiceDiv.className = `choice-card p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 ${
+                        isSelected 
+                            ? 'ring-4 ring-buzz-red bg-buzz-red text-white border-buzz-red' 
+                            : 'bg-white text-buzz-dark border-gray-200 hover:border-buzz-red hover:shadow-lg'
+                    }`;
+                    choiceDiv.setAttribute('data-answer', index);
+                    choiceDiv.onclick = () => selectAnswer(index, answer.points);
+                    
+                    choiceDiv.innerHTML = `
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 rounded-full border-2 mr-4 flex items-center justify-center ${
+                                isSelected ? 'border-white bg-white' : 'border-gray-300'
+                            }">
+                                ${isSelected ? '<div class="w-3 h-3 rounded-full bg-buzz-red"></div>' : ''}
+                            </div>
+                            <span class="font-semibold text-lg">${answer.text}</span>
+                        </div>
+                    `;
+                    
+                    choicesContainer.appendChild(choiceDiv);
+                });
+            }
+
+            function showResults() {
+                // Calculate total score
+                totalScore = answers.reduce((sum, answer) => sum + answer.points, 0);
+                
+                // Determine result tier
+                let resultTier = '';
+                for (const [tier, range] of Object.entries(resultTiers)) {
+                    if (totalScore >= range.min && totalScore <= range.max) {
+                        resultTier = tier;
+                        break;
+                    }
+                }
+                
+                // Hide questions and show results
+                document.getElementById('quiz-questions').classList.add('hidden');
+                document.getElementById('quiz-results').classList.remove('hidden');
+                
+                // Update result display
+                document.getElementById('score-display').textContent = totalScore;
+                document.getElementById('result-title').textContent = resultTier;
+                document.getElementById('result-description').textContent = resultTiers[resultTier].description;
+                
+                // Add confetti animation
+                createConfetti();
+            }
+
+            function createConfetti() {
+                const confettiContainer = document.getElementById('confetti-container');
+                const colors = ['#FF4757', '#5352ED', '#FFC107', '#2ED573'];
+                
+                for (let i = 0; i < 50; i++) {
+                    setTimeout(() => {
+                        const confetti = document.createElement('div');
+                        confetti.className = 'confetti-piece animate-confetti';
+                        confetti.style.left = Math.random() * 100 + '%';
+                        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.animationDelay = Math.random() * 3 + 's';
+                        confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                        confettiContainer.appendChild(confetti);
+                        
+                        setTimeout(() => confetti.remove(), 5000);
+                    }, i * 100);
+                }
+            }
+
+            // Social sharing functions
+            window.shareOnTwitter = function() {
+                const text = `I just took the "Is Your Loyalty Program Actually Driving Loyalty?" quiz and scored ${totalScore}/20! 🎯`;
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${url}`, '_blank');
+            };
+
+            window.shareOnFacebook = function() {
+                const url = encodeURIComponent(window.location.href);
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+            };
+
+            window.shareOnLinkedIn = function() {
+                const url = encodeURIComponent(window.location.href);
+                const title = encodeURIComponent("Loyalty Program Quiz Results");
+                const summary = encodeURIComponent(`I scored ${totalScore}/20 on this loyalty program effectiveness quiz!`);
+                window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}&summary=${summary}`, '_blank');
+            };
+
+            window.copyResults = function() {
+                const resultText = `I just took the "Is Your Loyalty Program Actually Driving Loyalty?" quiz and scored ${totalScore}/20! Take the quiz here: ${window.location.href}`;
+                navigator.clipboard.writeText(resultText).then(() => {
+                    // TODO: Show success message
+                    alert('Results copied to clipboard!');
+                });
+            };
+
+            window.restartQuiz = function() {
+                document.getElementById('quiz-results').classList.add('hidden');
+                document.getElementById('quiz-start').classList.remove('hidden');
+                currentQuestion = 0;
+                answers = [];
+                totalScore = 0;
+            };
+        })();
+    </script>
+</body>
+</html>

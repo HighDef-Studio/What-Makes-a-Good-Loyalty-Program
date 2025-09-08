@@ -1,0 +1,59 @@
+Build an interactive quiz tool that evaluates the maturity of a business’s customer loyalty program. The quiz is based on a structured checklist organized into eight categories. Each item within these categories has a descriptive label, an explanatory description (used as a tooltip or expandable text), and a backend-only weighted point value. Users will indicate whether each feature is currently deployed by selecting yes or no.
+
+Each "yes" selection should contribute its associated weighted point value (invisible to the user) toward the total score. The quiz should calculate both an overall maturity score and a detailed breakdown by category.
+
+Core Functional Requirements:
+
+1. Quiz Structure:
+   - Present the checklist in 8 logical sections:
+     - Customer-Centric Approach
+     - Engagement & Communication
+     - Data Utilization & Analytics
+     - Referrals & Social Sharing
+     - Flexibility & Adaptability
+     - Attractive Rewards
+     - Exceptional Customer Service
+     - Multi-Channel Accessibility
+   - Each section contains multiple items.
+   - Each item includes:
+     - A checkbox input
+     - A title (label)
+     - A description (available on hover or expand)
+     - A weighted point value (used for backend calculations only, hidden from users)
+
+2. Scoring Logic:
+   - For each item marked “yes,” add the corresponding weighted point value to the running total.
+   - Calculate:
+     - Total maturity score = (sum of selected weights ÷ total available weights) × 100
+     - Individual category score = (sum of selected weights in that category ÷ total category weights) × 100
+   - Round all percentages to the nearest whole number.
+
+3. Category-Level Feedback:
+   - For each of the 8 categories, always display:
+     - The name of the category
+     - The score percentage for that category
+     - A short summary of what this score represents
+     - 1–2 tailored recommendations for improving or maintaining performance in that category
+   - If a category score is below 60%, it may be labeled or styled as “underperforming,” but feedback should still be shown for all categories regardless of score.
+
+4. Overall Score Feedback:
+   - After the category breakdown, display the total maturity score (percentage).
+   - Based on that total score, display one of four overall program summaries:
+     - 85% and above:
+       - “Your loyalty program is highly mature and well-structured. Focus on fine-tuning and personalization to stay competitive.”
+     - 70% to 84%:
+       - “You have a strong foundational loyalty framework. Optimize communication cadence, staff alignment, and reward variety to maximize ROI.”
+     - 50% to 69%:
+       - “You are building loyalty momentum. Prioritize areas like digital integration, referral strategies, and streamlined customer experience.”
+     - Below 50%:
+       - “Your loyalty program is at an early stage. Start with essentials like sign-up simplicity, rewards visibility, and consistent messaging.”
+
+5. Final Output:
+   - Display:
+     - Total maturity score
+     - Table or list of each category with:
+       - Score percentage
+       - Summary feedback
+       - Actionable recommendations
+     - Overall maturity message based on total score range
+     - Optional: list of top 3 recommended next steps across all categories

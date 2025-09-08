@@ -1,0 +1,107 @@
+Quiz Title:
+Is Your Loyalty Program Actually Driving Loyalty?
+A 10-question check-up to see if your rewards system works for real customers—not just your back office.
+
+Instructions:
+Pick the answer that best fits your current program. You’ll get a score and breakdown at the end. Takes less than 5 minutes.
+
+1. Are your rewards based on what your best customers actually want?
+
+Yes, we use real data or direct feedback
+
+Sort of, we make educated guesses
+
+No, rewards are generic or based on leftover stock
+
+2. Do you offer different benefits or recognition for high-value customers?
+
+Yes, through tiers, early access, or exclusives
+
+Somewhat, but it’s inconsistent
+
+No, everyone gets the same rewards
+
+3. Can customers easily see their points or rewards balance?
+
+Yes, it’s visible at checkout or in their account
+
+It’s available but not obvious
+
+No, they have to ask or don’t know at all
+
+4. Is signing up for your loyalty program quick and simple?
+
+Yes, less than 30 seconds at checkout
+
+It requires a few extra steps
+
+It’s complicated or not promoted
+
+5. Are customers rewarded for non-purchase actions like reviews or referrals?
+
+Yes, we offer clear incentives for these
+
+Only for one or two actions
+
+No, only purchases earn points
+
+6. Are there multiple ways to redeem rewards?
+
+Yes, including discounts, products, or special access
+
+Mostly just discounts
+
+One rigid option only
+
+7. Do you communicate loyalty benefits through SMS, email, or social?
+
+Yes, through automated and regular messaging
+
+Occasionally or only in-store
+
+Rarely or never
+
+8. Is there a welcome flow that explains the program and next steps?
+
+Yes, customers get guided onboarding
+
+Kind of, but it’s limited or manual
+
+No, they’re enrolled silently with no follow-up
+
+9. Are loyalty offers or messages personalized based on shopping behavior?
+
+Yes, we target based on past purchases or habits
+
+Occasionally, in a broad sense
+
+No, all messages are the same
+
+10. Do your team members talk about the program during checkout?
+
+Yes, it’s part of the script or habit
+
+Sometimes, but not consistently
+
+No, it’s rarely mentioned
+
+Scoring:
+Top answer = 2 points
+
+Middle = 1 point
+
+Bottom = 0 points
+Max score: 20
+
+Results Breakdown:
+18–20: Loyalty Engine
+Your program is targeted, easy to use, and clearly valued by customers. Keep refining.
+
+13–17: Solid Core, Needs Fine-Tuning
+You’re on the right track, but usability, variety, or visibility might be holding back performance.
+
+7–12: Passive Program
+It exists, but most customers likely don’t engage with it. Focus on clarity, communication, and reward relevance.
+
+0–6: Needs a Rebuild
+The program isn’t driving loyalty. Prioritize a cleaner user experience and more meaningful value.
